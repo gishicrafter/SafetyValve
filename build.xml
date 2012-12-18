@@ -1,0 +1,58 @@
+<?xml version="1.0" ?> 
+<project name="SafetyValve">
+	
+	<property file="build.properties" />
+	
+	<target name="clean">
+		<delete dir="${dir.mcp}\src\common\buildcraft" />
+		<delete dir="${dir.mcp}\src\common\gishicrafter" />
+		<delete dir="${dir.mcp}\src\common\safetyvalve" />
+		<delete dir="${dir.mcp}\reobf\minecraft" />
+	</target>
+	
+	<target name="build" depends="clean">
+		<mkdir dir="${dir.mcp}\src\common\buildcraft" />
+		<copy todir="${dir.mcp}\src\common\buildcraft">
+			<fileset dir="${dir.mcp}\api\buildcraft\" />
+		</copy>
+		
+		<mkdir dir="${dir.mcp}\src\common\gishicrafter\util" />
+		<copy todir="${dir.mcp}\src\common\gishicrafter\util" file="${dir.mcp}\api\gishicrafter\util\ConfigHelper.java" failonerror="false" />
+		
+		<copy todir="${dir.mcp}\src\common">
+			<fileset dir="${dir.src}" />
+		</copy>
+	</target>
+	
+	<target name="recompile" depends="build">
+		<exec dir="${dir.mcp}" executable="cmd" osfamily="windows">
+			<arg line="/c recompile.bat" />
+		</exec>
+		<exec dir="${dir.mcp}" executable="bash" osfamily="unix">
+			<arg line="recompile.sh" />
+		</exec>
+	</target>
+	
+	<target name="reobfuscate" depends="recompile">
+		<exec dir="${dir.mcp}" executable="cmd" osfamily="windows">
+			<arg line="/c reobfuscate.bat" />
+		</exec>
+		<exec dir="${dir.mcp}" executable="bash" osfamily="unix">
+			<arg line="reobfuscate.sh" />
+		</exec>
+		<delete dir="${dir.mcp}\reobf\minecraft\buildcraft" />
+	</target>
+	
+	<target name="release" depends="reobfuscate">
+		
+		<mkdir dir="${dir.release}" />
+		<buildnumber />
+		<jar destfile="${dir.release}\${release.mod.name}-${release.mod.version}.${build.number}.jar">
+			<fileset dir="${dir.mcp}\reobf\minecraft" />
+			<fileset dir="${dir.resource}" />
+		</jar>
+		
+		<antcall target="clean" />
+	</target>
+	
+</project>
