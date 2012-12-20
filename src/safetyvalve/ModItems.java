@@ -1,12 +1,12 @@
 package safetyvalve;
 
+import net.minecraft.item.Item;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import safetyvalve.pipes.PipePowerIron;
 import safetyvalve.pipes.PipePowerSafetyValve;
 import safetyvalve.pipes.PipePowerVoid;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.Pipe;
-import net.minecraft.src.Item;
 
 public class ModItems {
 
