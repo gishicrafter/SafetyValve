@@ -39,6 +39,12 @@ public class PipeTransportPowerFilter extends PipeTransportPower {
 		}
 	}
 	
+	@Override
+	public void onNeighborBlockChange(int blockId) {
+		super.onNeighborBlockChange(blockId);
+		updateTiles();
+	}
+
 	private void init() {
 		if (needsInit) {
 			needsInit = false;
