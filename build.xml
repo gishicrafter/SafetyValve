@@ -1,5 +1,5 @@
 <?xml version="1.0" ?> 
-<project name="SafetyValve">
+<project name="SafetyValve" default="release">
 	
 	<property file="build.properties" />
 	
@@ -44,9 +44,6 @@
 	
 	<target name="build" depends="clean,version">
 		<copy-api-dir dir="buildcraft" />
-		
-		<mkdir dir="${dir.mcp}\src\minecraft\gishicrafter\util" />
-		<copy todir="${dir.mcp}\src\minecraft\gishicrafter\util" file="${dir.mcp}\api\gishicrafter\util\ConfigHelper.java" failonerror="false" />
 		
 		<filter token="THIS_MOD_VERSION" value="${version.full}" />
 		<copy todir="${dir.mcp}\src\minecraft" filtering="yes">

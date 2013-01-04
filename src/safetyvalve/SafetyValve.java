@@ -19,7 +19,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = "SafetyValve", name="Safety Valve", version="@THIS_MOD_VERSION@", dependencies="required-after:BuildCraft|Transport")
-@NetworkMod(clientSideRequired = true, serverSideRequired = true)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class SafetyValve {
 	
 	@Instance
